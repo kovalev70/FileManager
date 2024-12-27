@@ -40,8 +40,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
+
 app.UseCors(policy =>
-    policy.WithOrigins("http://localhost:4200")
+    policy.WithOrigins(allowedOrigins)
           .AllowAnyHeader()
           .AllowAnyMethod()
           .AllowCredentials());
